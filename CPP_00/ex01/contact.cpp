@@ -3,7 +3,7 @@
 Contact::Contact()
 {
 	for (int i = Firstname; i <= Secret; i++)
-		this->information[i] = std::string();
+		information[i] = std::string();
 }
 
 void Contact::set_Contact()
@@ -42,13 +42,13 @@ void Contact::set_Contact()
 void Contact::getContact(int index)
 {
 	std::cout << "|" << std::setw(10) << index;
-	for (int i = Firstname; i <= Nickname; i++)
+	for (int i = Firstname; i < Nickname; i++)
 	{
 		std::cout << "|";
-		if (this->information[i].length() > 10)
-			std::cout << this->information[i].substr(0, 9) << ".";
+		if (information[i].length() > 10)
+			std::cout << information[i].substr(0, 9) << ".";
 		else
-			std::cout << std::setw(10) << this->information[i];
+			std::cout << std::setw(10) << information[i];
 	}
 	std::cout << "|" << std::endl;
 }

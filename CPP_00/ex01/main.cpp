@@ -3,10 +3,8 @@
 
 int main()
 {
-	// Phonebook book;
-	Contact contact;
+	Phonebook book;
 	std::string choise;
-
 
 	while (1)
 	{
@@ -14,11 +12,11 @@ int main()
 		std::getline(std::cin, choise);
 		if (choise.compare("ADD") == 0)
 		{
-			contact.set_Contact();
+			book.add_contact();
 		}
 		else if (choise.compare("SEARCH") == 0)
 		{
-			// book.get_contact();
+			book.get_contact();
 		}
 		else if (choise.compare("EXIT") == 0)
 		{
