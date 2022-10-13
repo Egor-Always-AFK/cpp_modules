@@ -23,7 +23,7 @@ void Harl::error(void)
 void Harl::complain(std::string level)
 {
     void (Harl::*funptr[])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error}; 
-    std::string tmp[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    std::string tmp[] = {"debug", "info", "warning", "error"};
     for (size_t i = 0; i < 4; i++)
     {
         if (tmp[i] == level)

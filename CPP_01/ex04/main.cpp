@@ -44,6 +44,8 @@ int main(int argc, char **argv)
 				{
 					tmp = replacer(find, replace, tmp);
 					outfile << tmp;
+					if (infile.peek() != EOF)
+						outfile << std::endl;
 				}
 				outfile.close();
 			}
