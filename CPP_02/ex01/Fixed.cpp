@@ -42,7 +42,7 @@ Fixed &Fixed::operator=(const Fixed &src)
 
 float Fixed::toFloat(void) const
 {
-	return ((float)number / (float)(1 << bits));
+	return (number / (float)(1 << bits));
 }
 
 int Fixed::toInt(void) const
