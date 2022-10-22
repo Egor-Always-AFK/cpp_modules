@@ -1,12 +1,12 @@
-NAME = scavTrap
+NAME = diamondTrap
 
 CC = clang++ 
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp ClapTrap.cpp ScavTrap.cpp
+SRCS = src/main.cpp src/ClapTrap.cpp src/ScavTrap.cpp src/FragTrap.cpp src/DiamondTrap.cpp
 
-HEAD = ClapTrap.hpp ScavTrap.hpp
+HEAD = incl/ClapTrap.hpp incl/ScavTrap.hpp incl/FragTrap.hpp incl/DiamondTrap.hpp
 
 OBJS = $(SRCS:.c = .o)
 

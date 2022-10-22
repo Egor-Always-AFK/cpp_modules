@@ -1,12 +1,12 @@
-NAME = scavTrap
+NAME = fragTrap
 
 CC = clang++ 
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp ClapTrap.cpp ScavTrap.cpp
+SRCS = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
 
-HEAD = ClapTrap.hpp ScavTrap.hpp
+HEAD = ClapTrap.hpp ScavTrap.hpp FragTrap.hpp
 
 OBJS = $(SRCS:.c = .o)
 

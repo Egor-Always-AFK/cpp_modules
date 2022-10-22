@@ -1,4 +1,4 @@
-#include "ScavTrap.hpp"
+#include "../incl/DiamondTrap.hpp"
 
 int main()
 {
@@ -32,6 +32,28 @@ int main()
 		d.takeDamage(101);
 		d.takeDamage(15);
 		d.attack("Trap-clone");
+	}
+	{
+		FragTrap e;
+		FragTrap f("Jim");
+
+		e.highFiveGuys();
+		e.attack("dude");
+		e.takeDamage(101);
+		e.takeDamage(1);
+		e.attack("zerg");
+		f.highFiveGuys();
+	}
+	{
+		DiamondTrap a;
+		DiamondTrap b("PoroSad");
+		DiamondTrap c(a);
+
+		a.whoAmI();
+		a.attack("monkagun");
+		b.whoAmI();
+		b.attack("kekw");
+		c.whoAmI();
 	}
 	return (0);
 }
