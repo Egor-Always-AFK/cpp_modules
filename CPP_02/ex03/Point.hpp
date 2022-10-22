@@ -1,4 +1,6 @@
-#pragma once
+#ifndef POINT_HPP
+#define POINT_HPP
+
 #include "Fixed.hpp"
 
 class Point
@@ -20,3 +22,5 @@ class Point
 };
 
 bool bsp(Point const a, Point const b, Point const c, Point const point);
+
+#endif 
