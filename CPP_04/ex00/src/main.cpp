@@ -28,9 +28,13 @@ int main()
 
 	std::cout << "--------------DELETE ALL--------------\n";
 	delete meta;
+	std::cout << std::endl;
 	delete j;
+	std::cout << std::endl;
 	delete i;
+	std::cout << std::endl;
 	delete wrongMeta;
+	std::cout << std::endl;
 	delete wrongCat;
 
 	return (0);
