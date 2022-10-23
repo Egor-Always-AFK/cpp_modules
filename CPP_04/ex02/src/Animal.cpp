@@ -25,11 +25,6 @@ AAanimal  &AAanimal ::operator=(const AAanimal  &src)
 	return (*this);
 }
 
-void AAanimal ::makeSound(void) const
-{
-	std::cout << "The AAanimal  is mute! :c\n";
-}
-
 std::string AAanimal ::getType(void) const
 {
 	return (type);

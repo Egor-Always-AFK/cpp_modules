@@ -5,13 +5,16 @@
 int main()
 {
 
-	Cat cat;
-	Dog dog;
-	AAanimal *a1 =  &cat;
-	AAanimal *a2 = &dog;
+
+	// AAanimal test;
+	Cat *cat = new Cat();
+	Dog *dog = new Dog(); 
 
 	std::cout << std::endl;
-	a1->makeSound();
-	a2->makeSound();
+	cat->makeSound();
+	dog->makeSound();
+
+	delete cat;
+	delete dog;
 	return (0);
 }
