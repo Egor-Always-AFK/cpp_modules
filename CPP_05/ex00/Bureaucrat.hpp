@@ -1,3 +1,6 @@
+#ifndef BUREAUCRAT_HPP
+#define BUREAUCRAT_HPP
+
 #include <iostream>
 #include <string>
 
@@ -29,6 +32,11 @@ class  Bureaucrat
 		int getGrade(void) const;
 
 		Bureaucrat &operator=(const Bureaucrat &src);
+
+		void incrementGrade(void);
+		void decrementGrade(void);
 };
 
 std::ostream& operator<<(std::ostream& o, const Bureaucrat& b);
+
+#endif
