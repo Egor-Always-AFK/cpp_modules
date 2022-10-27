@@ -1,12 +1,12 @@
-NAME = converter
+NAME = data
 
-CC = clang++ 
+CC = c++ 
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = Converter.cpp main.cpp
+SRCS = Data.cpp main.cpp
 
-HEAD = Converter.hpp
+HEAD = Data.hpp
 
 OBJS = $(SRCS:.c = .o)
 

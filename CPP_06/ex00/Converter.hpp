@@ -1,50 +1,39 @@
 #ifndef CONVERTER_HPP
-#define CONVERTER_HPP
-
-
-#define CH 0
-#define INT 1
-#define FL 2
-#define DO 3
-
+# define CONVERTER_HPP
 #include <iostream>
+#include <cstring>
+#include <cmath>
+#include <cfloat>
+#include <limits>
 
-
-class Converter
-{
+class Converter{
 	private:
-		const std::string _input;
-		char _char;
-		int _int;
-		float _float;
-		double _double;
-	
+		std::string _input;
+		bool _err;
+		double _val;
 	public:
-		class ErrorException : public std::exception
+		class BadStrException: public std::exception
 		{
-			virtual const char *what() const throw();
+			const char* what() const throw();
 		};
 		Converter();
-		Converter(std::string input);
+		Converter(const std::string &input);
 		Converter(const Converter &cpy);
 
 		~Converter();
 
-		Converter &operator=(const Converter &src);
-
-		void convert(void);
-
-		void convChar(void);
-		void convInt(void);
-		void convFloat(void);
-		void convDouble(void);
-
+		bool getErr(void) const;
 		std::string getInput(void) const;
+		double getVal(void) const;
+
 		char getChar(void) const;
 		int getInt(void) const;
 		float getFloat(void) const;
 		double getDouble(void) const;
-		int getType(void) const;
+
+		Converter &operator=(const Converter &src);
 };
 
-#endif 
+std::ostream &operator<<(std::ostream &out, const Converter &conv);
+
+#endif

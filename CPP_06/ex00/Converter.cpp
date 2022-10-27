@@ -1,66 +1,152 @@
 #include "Converter.hpp"
 
-Converter::Converter()
-{   }
-
-Converter::Converter(std::string input) : _input(input)
+const char *Converter::BadStrException::what() const throw()
 {
-	_double = atof(_input.c_str());
-	convert();
+    return "Bad input string. Input number!";
 }
 
-Converter::Converter(const Converter &cpy)
+Converter::Converter() : _input(""), _err(false), _val(0.0f) {}
+
+Converter::Converter(const Converter &copy) : _input(copy.getInput()), _err(copy.getErr()), _val(copy.getVal())
 {
-	*this = cpy;
 }
 
-Converter::~Converter()
-{	}
-
-Converter &Converter::operator=(const Converter &src)
+Converter::Converter(const std::string &input) : _input(input), _err(false), _val(0.0f)
 {
-	if (this != &src)
-	{
-		_char = src._char;
-		_int = src._int;
-		_float = src._float;
-		_double = src._double;
-	}
-	return (*this);
+    try
+    {
+        char *str = NULL;
+        if (std::isprint(_input[0]) && !std::isdigit(_input[0]) && _input[1] == '\0')
+            _val = _input[0];
+        else
+        {
+            _val = std::strtod(_input.c_str(), &str);
+            if (_val == 0.0f &&
+                (_input[0] != '+' && _input[0] != '-' && !std::isdigit(_input[0])))
+                throw Converter::BadStrException();
+            if (*str && std::strcmp(str, "f"))
+                throw Converter::BadStrException();
+        }
+    }
+    catch (const std::exception &e)
+    {
+        _err = true;
+        std::cerr << e.what() << '\n';
+    }
 }
 
-void Converter::convert(void)
+// Getters
+bool Converter::getErr(void) const
 {
-	void (Converter::*functionPTRS[])(void) = {&Converter::convChar, &Converter::convInt, &Converter::convFloat, &Converter::convDouble};
-	int types[] = {CH, INT, FL, DO};
-
-	int tmp = getType();
-
-	int i;
-	for (i = 0; i < 4; i++)
-		if (tmp == types[i])
-		{
-			(this->*functionPTRS[i])();
-			break;
-		}
-	if (i == 4)
-		throw Converter::ErrorException();
-
+    return _err;
 }
 
-void Converter::convChar(void)
+std::string Converter::getInput(void) const
 {
-	_char = static_cast<unsigned char>(_input[0]);
-	_int  = static_cast<int>(getChar()); 
-	_float = static_cast<float>(getChar());
-	_double = static_cast<double>(getChar());
+    return _input;
 }
 
-void Converter::convInt(void)
+double Converter::getVal(void) const
 {
-	_int = static_cast<int>(_input[0]);
-	_char = static_cast<char>(_int);
-	_float = static_cast<float>(_int);
-	_double = static_cast<double>(_int);
+    return _val;
+}
 
+char Converter::getChar(void) const
+{
+    return static_cast<char>(_val);
+}
+
+int Converter::getInt(void) const
+{
+    return static_cast<int>(_val);
+}
+
+float Converter::getFloat(void) const
+{
+    return static_cast<float>(_val);
+}
+
+double Converter::getDouble(void) const
+{
+    return static_cast<double>(_val);
+}
+
+static void printChar(std::ostream &o, const Converter &c)
+{
+    o << "char: ";
+    if (std::isnan(c.getVal()) || std::isinf(c.getVal()) ||
+        c.getVal() > static_cast<double>(std::numeric_limits<char>::max()) ||
+        c.getVal() < static_cast<double>(std::numeric_limits<char>::min()))
+    {
+        o << "impossible" << std::endl;
+        return;
+    }
+    if (!std::isprint(c.getChar()))
+    {
+        o << "Non displayable" << std::endl;
+        return;
+    }
+    o << '\'' << c.getChar() << '\'' << std::endl;
+}
+
+static void printInt(std::ostream &o, const Converter &c)
+{
+    o << "int: ";
+    if (std::isnan(c.getVal()) || std::isinf(c.getVal()) ||
+        c.getVal() > static_cast<double>(std::numeric_limits<int>::max()) ||
+        c.getVal() < static_cast<double>(std::numeric_limits<int>::min()))
+    {
+        o << "impossible" << std::endl;
+        return;
+    }
+    o << c.getInt() << std::endl;
+}
+
+static void printFloat(std::ostream &o, const Converter &c)
+{
+    o << "float: ";
+    if (std::isnan(c.getFloat()) || std::isinf(c.getFloat()))
+    {
+        o << std::showpos << c.getFloat() << "f" << std::endl;
+        return;
+    }
+    if (floor(c.getVal()) == ceil(c.getVal()))
+        o << c.getFloat() << ".0f" << std::endl;
+    else
+        o << c.getFloat() << "f" << std::endl;
+}
+
+static void printDouble(std::ostream &o, const Converter &c)
+{
+    o << "double: ";
+    if (std::isnan(c.getVal()) || std::isinf(c.getVal()))
+    {
+        o << std::showpos << c.getDouble() << std::endl;
+        return;
+    }
+    if (floor(c.getVal()) == ceil(c.getVal()))
+        o << c.getDouble() << ".0" << std::endl;
+    else
+        o << c.getDouble() << std::endl;
+}
+
+Converter::~Converter() {}
+
+Converter &Converter::operator=(const Converter &assign)
+{
+    this->_err = assign.getErr();
+    this->_input = assign.getInput();
+    this->_val = assign.getVal();
+    return (*this);
+}
+
+std::ostream &operator<<(std::ostream &o, const Converter &c)
+{
+    if (c.getErr())
+        return o;
+    printChar(o, c);
+    printInt(o, c);
+    printFloat(o, c);
+    printDouble(o, c);
+    return o;
 }
