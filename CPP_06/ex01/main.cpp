@@ -1,7 +1,8 @@
+#include <stdint.h>
+// #include <cstdint> не работает на ubuntu :c 
 #include "Data.hpp"
-
-#include <cstdint>
 #include <iostream>
+
 
 uintptr_t serialize(Data* ptr)
 {
