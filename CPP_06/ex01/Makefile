@@ -4,7 +4,7 @@ CC = c++
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98 
 
-SRCS = Data.cpp main.cpp
+SRCS = main.cpp
 
 HEAD = Data.hpp
 

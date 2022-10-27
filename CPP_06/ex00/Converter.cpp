@@ -20,7 +20,7 @@ Converter::Converter(const std::string &input) : _input(input), _err(false), _va
             _val = _input[0];
         else
         {
-            _val = std::strtod(_input.c_str(), &str);
+            _val = strtod(_input.c_str(), &str);
             if (_val == 0.0f &&
                 (_input[0] != '+' && _input[0] != '-' && !std::isdigit(_input[0])))
                 throw Converter::BadStrException();
@@ -35,7 +35,6 @@ Converter::Converter(const std::string &input) : _input(input), _err(false), _va
     }
 }
 
-// Getters
 bool Converter::getErr(void) const
 {
     return _err;
